@@ -1,1 +1,1 @@
-# PHSX815_project1
+# PHSX815_project1. In order to use the code, run the experiment file in python3 using the command line, if you do it in shell it will not work. When you run it, it will generate an experiment with the default values or you can put in custom values for the dice cube and its properties. After you generate the experiment files, run the analysis code in the same folder and it will analyze the txt files that have the results in them.
