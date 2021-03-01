@@ -21,7 +21,7 @@ Num_rolls=100
 Num_sides=20
 Side_number=11
 
-Dice_power=2
+Dice_power=1.3
 print("Input custom values? Y/N")
 y=input()
 
@@ -57,27 +57,23 @@ p0=(1)/Num_sides #we believe the dice is fair
 
 
 
-p1=[1]
-for i in range(Num_sides):
+p1=[100000000]
+for i in range(Num_sides-1):
     p1.append(p1[0]/Dice_power**(i+1)) #For a dice cube weighted so that the probability of a side is lowered by a factor of Dice_power for each side greater than 1
+    
+    #print(sum(p1))
 Sp1=sum(p1)
+#print(p1[0])
 for i in range(Num_sides):
+    #print(p1[i])
+    #print()
     p1[i]=p1[i]/Sp1
-#print(p0*Num_sides,sum(p1))
-Sp1=sum(p1)
-for i in range(Num_sides):
-    p1[i]=p1[i]/Sp1
-#print(p0*Num_sides,sum(p1))
-Sp1=sum(p1)
-for i in range(Num_sides):
-    p1[i]=p1[i]/Sp1
-#print(p0*Num_sides,sum(p1))
-Sp1=sum(p1)
-for i in range(Num_sides):
-    p1[i]=p1[i]/Sp1
-#print(p0*Num_sides,sum(p1))
+    #print("N",p1[i])
+    #print()
+#print(p1[0])
 #print(p1)
-
+#print(sum(p1))
+#print(len(p1))
 #print(p1)
 #print(sum(p1)) #Those probabilities for the loaded die sum to 1
 
@@ -117,11 +113,18 @@ for i in range(Num_exp):
             Roll_res.append(1) #If the random number is higher than the side number specified, the roll was a success
             Npass += float(1)
             #print(p1[int(a):len(p1)-1])
-            LLR += log( sum(p1[int(a):len(p1)])/p0 )
+            #print(sum(p1[int(a)-1:]))
+            #print(p1[int(a)-1:])
+            #print(int(a)-1)
+            
+            LLR += log( sum(p1[Side_number-1:])/(p0*(Num_sides-Side_number)))
         else:
-
+            #print(p1[int(a):len(p1)-1])
+            #print(sum(p1[int(a)-1:]))
+            #print(p1[int(a)-1:])
+            #print(int(a)-1)
             Roll_res.append(0) #Conversely, it fails
-            LLR += log( (1- sum(p1[int(a):len(p1)]))/(1-p0) )
+            LLR += log( (1- sum(p1[Side_number-1:]))/(1-p0*(Num_sides-Side_number)) )########################FIIXIX MEE
         res_f0.write(str(a)+"\n")
 
     log0.write(str(LLR)+"\n")
@@ -194,11 +197,11 @@ for i in range(Num_exp):
             
             Roll_res.append(1) #If the random number is higher than the side number specified, the roll was a success
             Npass += float(1)
-            LLR += log( p1[a]/p0 )
+            LLR += log( sum(p1[Side_number-1:])/(p0*(Num_sides-Side_number)))
         else:
 
             Roll_res.append(0) #Conversely, it fails
-            LLR += log( (1-p1[a])/(1-p0) )
+            LLR += log( (1- sum(p1[Side_number-1:]))/(1-p0*(Num_sides-Side_number)) )
     '''
     if Npass < Npass_min:
         Npass_min = Npass
