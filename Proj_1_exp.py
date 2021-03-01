@@ -21,7 +21,7 @@ Num_rolls=100
 Num_sides=20
 Side_number=11
 
-Dice_power=1.1#2
+Dice_power=2
 print("Input custom values? Y/N")
 y=input()
 
@@ -51,7 +51,8 @@ print("A")
 for i in range(100):
     param.write("Num_exp Num_rolls Num_sides Side_number Dice_power"+"\n") #need this or else it wont work for some reason
 
-p0=(Num_sides-Side_number+1)/Num_sides #we believe the dice is fair
+#print(Num_sides,Side_number,Num_sides)
+p0=(1)/Num_sides #we believe the dice is fair
 #p1=Side_number/Num_sides*0.05 #if the dice is loaded for a low roll
 
 
@@ -61,7 +62,22 @@ for i in range(Num_sides):
     p1.append(p1[0]/Dice_power**(i+1)) #For a dice cube weighted so that the probability of a side is lowered by a factor of Dice_power for each side greater than 1
 Sp1=sum(p1)
 for i in range(Num_sides):
-    p1[i]=p1[i]/Sp1 
+    p1[i]=p1[i]/Sp1
+#print(p0*Num_sides,sum(p1))
+Sp1=sum(p1)
+for i in range(Num_sides):
+    p1[i]=p1[i]/Sp1
+#print(p0*Num_sides,sum(p1))
+Sp1=sum(p1)
+for i in range(Num_sides):
+    p1[i]=p1[i]/Sp1
+#print(p0*Num_sides,sum(p1))
+Sp1=sum(p1)
+for i in range(Num_sides):
+    p1[i]=p1[i]/Sp1
+#print(p0*Num_sides,sum(p1))
+#print(p1)
+
 #print(p1)
 #print(sum(p1)) #Those probabilities for the loaded die sum to 1
 
@@ -100,11 +116,12 @@ for i in range(Num_exp):
             
             Roll_res.append(1) #If the random number is higher than the side number specified, the roll was a success
             Npass += float(1)
-            LLR += log( p1[int(a)]/p0 )
+            #print(p1[int(a):len(p1)-1])
+            LLR += log( sum(p1[int(a)-1:len(p1)])/p0 )
         else:
 
             Roll_res.append(0) #Conversely, it fails
-            LLR += log( (1-p1[int(a)])/(1-p0) )
+            LLR += log( (1- sum(p1[int(a):len(p1)-1]))/(1-p0) )
         res_f0.write(str(a)+"\n")
 
     log0.write(str(LLR)+"\n")
