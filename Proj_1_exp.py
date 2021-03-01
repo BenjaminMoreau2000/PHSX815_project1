@@ -117,11 +117,11 @@ for i in range(Num_exp):
             Roll_res.append(1) #If the random number is higher than the side number specified, the roll was a success
             Npass += float(1)
             #print(p1[int(a):len(p1)-1])
-            LLR += log( sum(p1[int(a)-1:len(p1)])/p0 )
+            LLR += log( sum(p1[int(a):len(p1)])/p0 )
         else:
 
             Roll_res.append(0) #Conversely, it fails
-            LLR += log( (1- sum(p1[int(a):len(p1)-1]))/(1-p0) )
+            LLR += log( (1- sum(p1[int(a):len(p1)]))/(1-p0) )
         res_f0.write(str(a)+"\n")
 
     log0.write(str(LLR)+"\n")

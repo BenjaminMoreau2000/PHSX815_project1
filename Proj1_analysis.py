@@ -106,10 +106,21 @@ plt.hist([Lambda_alpha,Lambda_alpha+1,Lambda_alpha-1],1,label="$\\lambda_\\alpha
 
 #print(Full_L)
 #plt.hist(Full_L,Num_rolls+1,facecolor="orange",alpha=.5,density=True)
-
+mn=0
+mx=0
+if(min(LogLikeRatio0)<min(LogLikeRatio1)):
+    mn=min(LogLikeRatio0)
+else:
+    mn=min(LogLikeRatio1)
+if(max(LogLikeRatio0)<max(LogLikeRatio1)):
+    mx=max(LogLikeRatio1)
+else:
+    mx=max(LogLikeRatio0)
+    
+   
 plt.legend()
-plt.xlim(min(LogLikeRatio0),max(LogLikeRatio1) )
-plt.ylim(0,1/Num_sides)
+plt.xlim(mn,mx )
+plt.ylim(0,1)
 
 plt.xlabel('$\\lambda = \\log({\\cal L}_{\\mathbb{H}_{1}}/{\\cal L}_{\\mathbb{H}_{0}})$')
 plt.ylabel('Probability')
